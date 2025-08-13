@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindCare - Mental Health Awareness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.3);
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about {
+            background: #f8f9fa;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-visual {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .mental-health-icon {
+            font-size: 8rem;
+            color: white;
+            opacity: 0.8;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Statistics */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        /* Anxiety Calculator */
+        .calculator {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .calculator-container {
+            background: rgba(255,255,255,0.1);
+            padding: 50px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .question h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .option {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .option input[type="radio"] {
+            display: none;
+        }
+
+        .option label {
+            display: block;
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option input[type="radio"]:checked + label {
+            background: white;
+            color: #f5576c;
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        .calculate-btn {
+            background: white;
+            color: #f5576c;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .anxiety-level {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Resources */
+        .resources {
+            background: #f8f9fa;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .resource-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #ecf0f1;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .options {
+                flex-direction: column;
+            }
+            
+            .calculator-container {
+                padding: 30px 20px;
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">🧠 MindCare</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#calculator">Anxiety Test</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Mental Health Matters</h1>
+                <p>Understanding, supporting, and nurturing mental wellness for everyone</p>
+                <a href="#calculator" class="cta-button">Take Anxiety Assessment</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title">About Mental Health</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Mental health is a critical component of overall well-being that affects how we think, feel, and act. It influences how we handle stress, relate to others, and make healthy choices.</p>
+                    
+                    <p>Our mission is to provide accessible resources, reduce stigma, and help individuals understand their mental health better through education and self-assessment tools.</p>
+                    
+                    <p>Remember: seeking help is a sign of strength, not weakness. Everyone deserves support and understanding on their mental health journey.</p>
+                </div>
+                <div class="about-visual">
+                    <div class="mental-health-icon">🧘‍♀</div>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">1 in 4</div>
+                    <p>people experience mental health issues yearly</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">75%</div>
+                    <p>of mental health conditions begin by age 24</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50%</div>
+                    <p>of cases go undiagnosed and untreated</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">90%</div>
+                    <p>report significant improvement with treatment</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="section calculator">
+        <div class="container">
+            <h2 class="section-title">Anxiety Level Assessment</h2>
+            <div class="calculator-container">
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">
+                    This questionnaire is based on common anxiety symptoms. It's for educational purposes and not a substitute for professional diagnosis.
+                </p>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <form id="anxietyForm">
+                    <div class="question">
+                        <h3>1. How often do you feel nervous, anxious, or on edge?</h3>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q1" value="0" id="q1_0">
+                                <label for="q1_0">Not at all</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q1" value="1" id="q1_1">
+                                <label for="q1_1">Several days</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q1" value="2" id="q1_2">
+                                <label for="q1_2">More than half</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q1" value="3" id="q1_3">
+                                <label for="q1_3">Nearly every day</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>2. How often are you unable to stop or control worrying?</h3>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q2" value="0" id="q2_0">
+                                <label for="q2_0">Not at all</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q2" value="1" id="q2_1">
+                                <label for="q2_1">Several days</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q2" value="2" id="q2_2">
+                                <label for="q2_2">More than half</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q2" value="3" id="q2_3">
+                                <label for="q2_3">Nearly every day</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>3. How often do you worry too much about different things?</h3>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q3" value="0" id="q3_0">
+                                <label for="q3_0">Not at all</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q3" value="1" id="q3_1">
+                                <label for="q3_1">Several days</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q3" value="2" id="q3_2">
+                                <label for="q3_2">More than half</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q3" value="3" id="q3_3">
+                                <label for="q3_3">Nearly every day</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>4. How often do you have trouble relaxing?</h3>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q4" value="0" id="q4_0">
+                                <label for="q4_0">Not at all</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q4" value="1" id="q4_1">
+                                <label for="q4_1">Several days</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q4" value="2" id="q4_2">
+                                <label for="q4_2">More than half</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q4" value="3" id="q4_3">
+                                <label for="q4_3">Nearly every day</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>5. How often are you so restless that it's hard to sit still?</h3>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q5" value="0" id="q5_0">
+                                <label for="q5_0">Not at all</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q5" value="1" id="q5_1">
+                                <label for="q5_1">Several days</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q5" value="2" id="q5_2">
+                                <label for="q5_2">More than half</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q5" value="3" id="q5_3">
+                                <label for="q5_3">Nearly every day</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>6. How often do you feel afraid that something awful might happen?</h3>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q6" value="0" id="q6_0">
+                                <label for="q6_0">Not at all</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q6" value="1" id="q6_1">
+                                <label for="q6_1">Several days</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q6" value="2" id="q6_2">
+                                <label for="q6_2">More than half</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q6" value="3" id="q6_3">
+                                <label for="q6_3">Nearly every day</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="calculate-btn" onclick="calculateAnxiety()">Calculate My Anxiety Level</button>
+                </form>
+
+                <div id="result" class="result">
+                    <div class="anxiety-level" id="anxietyLevel"></div>
+                    <p id="anxietyDescription"></p>
+                    <p id="anxietyRecommendation"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources" class="section resources">
+        <div class="container">
+            <h2 class="section-title">Mental Health Resources</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">📞</div>
+                    <h3>Crisis Hotlines</h3>
+                    <p>24/7 support when you need it most:</p>
+                    <p><strong>National Suicide Prevention Lifeline:</strong> 988</p>
+                    <p><strong>Crisis Text Line:</strong> Text HOME to 741741</p>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">🏥</div>
+                    <h3>Professional Help</h3>
+                    <p>Finding the right mental health professional is crucial. Consider therapy, counseling, or psychiatric care based on your needs.</p>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">🧘</div>
+                    <h3>Self-Care Techniques</h3>
+                    <p>Practice mindfulness, regular exercise, healthy sleep habits, and stress management techniques for better mental wellness.</p>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">👥</div>
+                    <h3>Support Groups</h3>
+                    <p>Connect with others who understand your experience. Local and online support groups provide community and understanding.</p>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">📚</div>
+                    <h3>Educational Resources</h3>
+                    <p>Learn about mental health conditions, treatments, and recovery through reputable sources and educational materials.</p>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">💊</div>
+                    <h3>Treatment Options</h3>
+                    <p>Explore various treatment approaches including therapy, medication, and holistic treatments with qualified professionals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#about">About Mental Health</a>
+                    <a href="#calculator">Anxiety Assessment</a>
+                    <a href="#resources">Resources</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Emergency Resources</h3>
+                    <a href="tel:988">Crisis Lifeline: 988</a>
+                    <a href="sms:741741">Text Crisis Line: 741741</a>
+                    <a href="tel:911">Emergency: 911</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Learn More</h3>
+                    <a href="https://www.nimh.nih.gov/">NIMH</a>
+                    <a href="https://www.nami.org/">NAMI</a>
+                    <a href="https://www.mentalhealth.gov/">MentalHealth.gov</a>
+                </div>
+            </div>
+            <p>&copy; 2025 MindCare - Mental Health Awareness. This tool is for educational purposes only and not a substitute for professional medical advice.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Progress tracking
+        function updateProgress() {
+            const questions = document.querySelectorAll('.question');
+            let answered = 0;
+            
+            questions.forEach((question, index) => {
+                const radios = question.querySelectorAll('input[type="radio"]');
+                const isAnswered = Array.from(radios).some(radio => radio.checked);
+                if (isAnswered) answered++;
+            });
+            
+            const progress = (answered / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Add event listeners to all radio buttons
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+
+        function calculateAnxiety() {
+            const form = document.getElementById('anxietyForm');
+            const formData = new FormData(form);
+            let totalScore = 0;
+            let answeredQuestions = 0;
+
+            // Check if all questions are answered
+            for (let i = 1; i <= 6; i++) {
+                const answer = formData.get(q${i});
+                if (answer !== null) {
+                    totalScore += parseInt(answer);
+                    answeredQuestions++;
+                }
+            }
+
+            if (answeredQuestions !== 6) {
+                alert('Please answer all questions before calculating your anxiety level.');
+                return;
+            }
+
+            // Calculate anxiety level based on GAD-7 scoring
+            let level, description, recommendation, color;
+
+            if (totalScore <= 4) {
+                level = "Minimal Anxiety";
+                description = "Your responses suggest minimal anxiety symptoms.";
+                recommendation = "Continue with healthy lifestyle habits and stress management techniques.";
+                color = "#27ae60";
+            } else if (totalScore <= 9) {
+                level = "Mild Anxiety";
+                description = "Your responses suggest mild anxiety symptoms.";
+                recommendation = "Consider stress reduction techniques, regular exercise, and mindfulness practices. Monitor your symptoms.";
+                color = "#f39c12";
+            } else if (totalScore <= 14) {
+                level = "Moderate Anxiety";
+                description = "Your responses suggest moderate anxiety symptoms.";
+                recommendation = "Consider speaking with a healthcare provider or mental health professional for evaluation and support.";
+                color = "#e67e22";
+            } else {
+                level = "Severe Anxiety";
+                description = "Your responses suggest severe anxiety symptoms.";
+                recommendation = "We strongly recommend speaking with a healthcare provider or mental health professional as soon as possible.";
+                color = "#e74c3c";
+            }
+
+            // Display results
+            document.getElementById('anxietyLevel').textContent = level;
+            document.getElementById('anxietyLevel').style.color = color;
+            document.getElementById('anxietyDescription').textContent = description;
+            document.getElementById('anxietyRecommendation').textContent = recommendation;
+            document.getElementById('result').classList.add('show');
+
+            // Scroll to results
+            document.getElementById('result').scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+
+        // Add floating animation to stats on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-card, .resource-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
